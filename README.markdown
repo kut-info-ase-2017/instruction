@@ -46,20 +46,26 @@ https://www.raspberrypi.org/downloads/raspbian/
 
 ## Preliminaries
 
+### GPIO
+
 We use GPIO (General Purpose I/O) of Raspberry Pi to control peripherals such as LED and sensors.  Raspberry Pi has multiple GPIO pin, each is identified by either BCM number or Pin number.  We use BCM in this course. (Refer to http://osoyoo.com/2017/06/26/introduction-of-raspberry-pi-gpio/).  Use of GPIO number is confusing; BCM number is printed as GPIO number on a connector while pin name "GPIO. XX" is used in elsewhere.
 
 GPIO pin can be controlled with `Pi.GPIO` module from Python programs.
 
+### breadboard
+
+We use a breadboard to construct a circuit.  Hols on a breadboard are connected as shown in the following picture.
+<img src="BREADBOARD.png">
+
 ## Instruction
 
 * Connect Raspberry Pi to a bread board
-* Construct a circuit on the bread board
+* Construct a circuit on the bread board (connection graph: http://osoyoo.com/wp-content/uploads/2017/06/Untitled-Sketch_bb.jpg)
   * connect BCM Pin#17 to the longer pin of LED
   * connect the sorter pin with either pin of a register (200 ohm)
   * connect the other pin of the register to GND pin of Raspberry pi.
-  <img src="http://osoyoo.com/wp-content/uploads/2017/06/Untitled-Sketch_bb.jpg">
 * Plug the power of your Raspberry Pi and log in.
-* Execute the following python program.  This program can be found at http://osoyoo.com/driver/pi3_start_learning_kit_lesson_4/pythontest.py
+* Execute the following python program.  You need to use `sudo` to access privileged resources, i.e., GPIO.  This program can be found at http://osoyoo.com/driver/pi3_start_learning_kit_lesson_4/pythontest.py
 
 ```
 #!/usr/bin/python
@@ -146,7 +152,7 @@ DHT11 module is a sensor module on which necessary registers are implemented.  A
 ## Instruction
 
 * Unplug the power cable of your Raspberry Pi
-* Construct a circuit on the breadboard <img src="http://osoyoo.com/wp-content/uploads/2017/07/Untitled-Sketch_bb.png">
+* Construct a circuit on the breadboard (connection graph:http://osoyoo.com/wp-content/uploads/2017/07/Untitled-Sketch_bb.png)
 * Plug the power cable of your Raspberry Pi and log in.
 * Execute the following program.
 
