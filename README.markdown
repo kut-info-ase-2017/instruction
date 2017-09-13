@@ -40,7 +40,7 @@ https://www.raspberrypi.org/downloads/raspbian/
 
 # Light LED
 
-(read Raspberry Pi Starter Kit Lesson 4 http://osoyoo.com/2017/06/22/intall-wiringpi/)
+(read Raspberry Pi Starter Kit Lesson 4 http://osoyoo.com/2017/06/23/python-light-led/)
 
 *REMARK: Be careful not to destroy devices.  DO NOT connect 5V/3V/GND pins each other or directly to a signal pin.   LED has virtually no resistance.  Insert a register.*
 
