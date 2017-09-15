@@ -1,3 +1,7 @@
+# Introduction
+
+* Lecture slides https://goo.gl/56Uktr
+
 # References
 
 * Raspberry Pi Starter Kit: learning course of sensors in the startar kit http://osoyoo.com/2017/07/13/raspberry-pi-3-starter-learning-kit-introduction/#3
