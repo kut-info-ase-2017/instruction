@@ -10,14 +10,43 @@ https://www.raspberrypi.org/downloads/raspbian/
 * In PL-2 Raspberry Pi Container
   * Raspberry Pi
   * USB power cable
+  * Raspbian OS installed SD card (installed in Rapsberry Pi)
+  * Raspberry Pi paper box (DO NOT DAMAGE)
+  * PL-2 SD card (inside the box. DO NOT TOUCH)
   * USB SD card adapter
-  * Raspberry Pi paper box (do not damage)
-  * IO board (do not damage)
-  * SD card
+  * IO board for PL-2
 
 * In Raspberry Pi Starter Kit
   * Raspberry Pi 3 Starter Learning Kit Packing List
   * items listed on the Packing List
+
+# Preparation
+(You can skip this section. The SD card set in the Raspberry Pi is ready. Refer to this section when you want to prepare your own SD card or re-install Raspbian OS.)
+
+Raspberry Pi boots from an SD card. Here, we write the disk image of Raspbian to an SD card.
+
+1. Download disk image (RASPBIAN STRETCH WITH DESKTOP) from: https://www.raspberrypi.org/downloads/raspbian/
+
+2. Insert SD card to PC.
+
+3. Unmount the SD card if it is automatically mounted. For Mac,
+
+  1. Check the device name of the SD card.  Device name is something like `/dev/disk3`
+```
+diskutil list
+```
+
+  2. Unmount the disk.  If the device name is `/dev/disk3`,
+```
+sudo diskutil unmountDisk /dev/disk3
+```
+
+4. Write the image to the SD card.  If the device name is `/dev/disk3`
+```
+sudo dd if=<image file name> of=/dev/disk3 bs=1m
+```
+where ``<image file name>`` is the file name of the one that is downloaded in step 1.
+For mac, dd command writes faster by using `/dev/rdisk3` instead of `/dev/disk3`.
 
 # Getting started
 
@@ -32,10 +61,15 @@ https://www.raspberrypi.org/downloads/raspbian/
   * user: pi, password: raspberry
 * Set-up SSH (Section B. Remotely in the on-line material)
   * Type `sudo systemctl enable ssh` in a terminal.
+  * Type `sudo systemctl start ssh` in a terminal.
   * Find the IP address assigned to your Raspberry Pi by `ifconfig`.
   * Log in though SSH from your laptop: `ssh pi@<IP address>`
 * Power off
-  * Type `sync` to ensure all data is written to the SD card.
+  * Use shutdown command
+```
+sudo shutdown -h now
+```
+  (Alternatively, type `sync` to ensure all data is written to the SD card.)
   * Unplug the power cable.
 
 # Light LED
@@ -48,7 +82,7 @@ https://www.raspberrypi.org/downloads/raspbian/
 
 ### GPIO
 
-We use GPIO (General Purpose I/O) of Raspberry Pi to control peripherals such as LED and sensors.  Raspberry Pi has multiple GPIO pin, each is identified by either BCM number or Pin number.  We use BCM in this course. (Refer to http://osoyoo.com/2017/06/26/introduction-of-raspberry-pi-gpio/).  Use of GPIO number is confusing; BCM number is printed as GPIO number on a connector while pin name "GPIO. XX" is used in elsewhere.
+We use GPIO (General Purpose I/O) of Raspberry Pi to control peripherals such as LED and sensors.  Raspberry Pi has multiple GPIO pin, each is identified by either BCM pin number or Physical in number.  BCM pin number is printed on the Raspberry Pi case. We use BCM pin number in this course.
 
 GPIO pin can be controlled with `Pi.GPIO` module from Python programs.
 
@@ -60,12 +94,13 @@ We use a breadboard to construct a circuit.  Hols on a breadboard are connected 
 ## Instruction
 
 * Connect Raspberry Pi to a bread board
-* Construct a circuit on the bread board (connection graph: http://osoyoo.com/wp-content/uploads/2017/06/Untitled-Sketch_bb.jpg)
+* Construct a circuit on the bread board (connection graph:
+http://osoyoo.com/wp-content/uploads/2017/06/Untitled-Sketch_bb.jpg)
   * connect BCM Pin#17 to the longer pin of LED
   * connect the sorter pin with either pin of a register (200 ohm)
   * connect the other pin of the register to GND pin of Raspberry pi.
 * Plug the power of your Raspberry Pi and log in.
-* Execute the python program found at the following URL. You need to use `sudo` to access privileged resources, i.e., GPIO.  
+* Download a test program from the following URL and execute it.
  http://osoyoo.com/driver/pi3_start_learning_kit_lesson_4/pythontest.py
 
 # Temperature and humidity sensor module
@@ -80,3 +115,13 @@ DHT11 module is a sensor module on which necessary registers are implemented.  A
 * Construct a circuit on the breadboard (connection graph:http://osoyoo.com/wp-content/uploads/2017/07/Untitled-Sketch_bb.png)
 * Plug the power cable of your Raspberry Pi and log in.
 * Execute the python program found at the folloing URL: http://osoyoo.com/driver/pi3_start_learning_kit_lesson_17/dht11.py
+
+# Practice
+
+Let us develop a heat index indicator.
+Heat index is explained in [wikipedia](https://ja.wikipedia.org/wiki/不快指数)
+
+The indicator senses temperature and humidity each second, and light the LED corresponding to the current heat index.
+  * green: heat index < 75
+  * yellow: heat index < 80
+  * red: heat index >= 80
